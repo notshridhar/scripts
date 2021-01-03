@@ -1,6 +1,6 @@
-=============
-   Scripts
-=============
+=======
+Scripts
+=======
 
 Repo for some standalone utility scripts to make life easier.
 Usage and descriptions can also be found inside each script.
