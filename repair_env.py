@@ -9,10 +9,8 @@
 # 1. Move the env to the new location
 # 2. Run ./repair_env.py <PATH>
 
-
 import os
 import sys
-
 
 def file_replace(filepath: str, old_string: str, new_string: str) -> bool:
     """
@@ -32,13 +30,11 @@ def file_replace(filepath: str, old_string: str, new_string: str) -> bool:
         outfile.write(content.replace(old_string, new_string))
         return True
 
-
 def autodetect(envpath: str) -> str:
     """
     Autodetect the old path from shebang line of pip script
     Returns the detected path if found, null otherwise
     """
-
     scriptpath = os.path.join(envpath, 'bin', 'pip')
 
     if not os.path.isfile(scriptpath):
@@ -49,9 +45,7 @@ def autodetect(envpath: str) -> str:
         envpath = os.sep.join(pypath.split(os.sep)[:-2])
         return envpath
 
-
 if __name__ == '__main__':
-
     stat = {
         'err': '\033[31;1m' + 'ERROR:' + '\033[0m',
         'ok': '\033[32;1m' + 'OK:' + '\033[0m',
@@ -66,7 +60,8 @@ if __name__ == '__main__':
         print('Use --help for usage instructions')
         exit()
 
-    newpath = sys.argv[1]
+    npath = sys.argv[1].rstrip('/')
+    newpath = npath if npath.startswith('/') else os.path.join(os.getcwd(), npath)
     oldpath = autodetect(newpath)
 
     if not oldpath:
